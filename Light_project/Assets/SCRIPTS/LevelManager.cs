@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-public class SceneManager : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
 
     public void GoToMainlevel()
