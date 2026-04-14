@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public GameObject Button;
+    public GameObject Button, openShelf;
     public List<GameObject> shelves = new List<GameObject>();
     public List<GameObject> shelfSlots = new List<GameObject>();
 
@@ -33,6 +33,10 @@ public class Inventory : MonoBehaviour
             int targetSlotIndex = (i + currentOffset) % shelfSlots.Count;
 
             shelves[i].GetComponent<CircleCollider2D>().enabled = (targetSlotIndex == 0);
+            if(targetSlotIndex == 0)
+            {
+                openShelf = shelves[i];
+            }
 
             if(shelves[i].GetComponent<Basket>().currentIteam != null)
             {

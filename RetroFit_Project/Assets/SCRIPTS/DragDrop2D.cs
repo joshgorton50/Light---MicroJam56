@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class DragDrop2D : MonoBehaviour
 {
-    private Vector3 dragOffset;
-    public bool isDragging = false;
+
+    public bool isDragging = false, inMan;
+    public GameObject clamHome;
 
     private void OnMouseDown()
     {
-        //dragOffset = transform.position - GetMouseWorldPosition();
         isDragging = true;
         transform.SetParent(null);   
         gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
@@ -25,6 +25,21 @@ public class DragDrop2D : MonoBehaviour
     {
         isDragging = false;
         gameObject.GetComponent<CapsuleCollider2D>().enabled = true;
+        Compatibility compScript = GetComponent<Compatibility>();
+
+        
+        bool isNotAttachedToBot = (transform.parent == null || transform.parent.GetComponent<Bot>() == null);
+
+
+        if(compScript != null && compScript.botPart.ToString() == "clamp" && transform.parent == null)
+        {
+            print("go home");
+            if (clamHome != null) 
+            {
+                transform.SetParent(clamHome.transform);
+            }
+            transform.localPosition = Vector2.zero;
+        }
     }
 
     private Vector3 GetMouseWorldPosition()

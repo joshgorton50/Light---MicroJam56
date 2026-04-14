@@ -6,7 +6,7 @@ public class Basket : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Item")
+        if (collision.gameObject.tag == "Item" && collision.gameObject.GetComponent<Compatibility>().botPart.ToString() != "clamp")
         {
             print("get in me");
             currentIteam = collision.gameObject;
