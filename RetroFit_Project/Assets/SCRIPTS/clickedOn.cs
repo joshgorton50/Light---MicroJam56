@@ -9,5 +9,7 @@ public class clickedOn : MonoBehaviour
     {
         isClicked
             = true;
+            
+        //FindObjectOfType<ShopManager>().RevealNextItem(transform);
     }
 }

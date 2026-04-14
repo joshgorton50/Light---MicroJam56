@@ -20,6 +20,7 @@ public class Bot : MonoBehaviour
 
     }
     public BotPartSocket botPartSocket;
+    public bool leave;
 
     private void Start()
     {
@@ -31,8 +32,9 @@ public class Bot : MonoBehaviour
         if (collision.CompareTag("Item"))
         {
             hoveringItem = collision.gameObject;
-            print("nohme");
-            hoveringItem.GetComponent<DragDrop2D>().inMan = false;
+            
+            hoveringItem.GetComponent<DragDrop2D>().inMan = true; 
+            print("1. ITEM TOUCHED BOT! inMan = true");
         }
     }
 
@@ -40,7 +42,8 @@ public class Bot : MonoBehaviour
     {
         if (collision.gameObject == hoveringItem)
         {
-            hoveringItem.GetComponent<DragDrop2D>().inMan = true;
+           
+            hoveringItem.GetComponent<DragDrop2D>().inMan = false; 
             hoveringItem = null;
         }
     }
@@ -49,6 +52,7 @@ public class Bot : MonoBehaviour
     {
         if (hoveringItem != null && currentIteam == null)
         {
+            print("4. BOT SEES THE DROP");
             // 1. Grab your Compatibility script!
             Compatibility compScript = hoveringItem.GetComponent<Compatibility>();
 
@@ -74,6 +78,14 @@ public class Bot : MonoBehaviour
             }
         }
 
+        if (leave)
+        {
+            transform.position = Vector2.Lerp(transform.position, new Vector2(10,-10),6*Time.deltaTime);
+            if(transform.position.y < -9){
+                Destroy(gameObject);
+            }
+        }
+
         if (currentIteam != null)
         {
             if (!currentIteam.transform.IsChildOf(transform))
@@ -81,6 +93,11 @@ public class Bot : MonoBehaviour
                 currentIteam = null;
                 col.enabled = true; 
             }
+            GameObject.Find("Canvas").gameObject.GetComponent<IteamReader>().dischargeButton.interactable = true;
+        }
+        else
+        {
+            GameObject.Find("Canvas").gameObject.GetComponent<IteamReader>().dischargeButton.interactable = false;
         }
     }
 }

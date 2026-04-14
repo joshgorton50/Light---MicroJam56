@@ -1,14 +1,25 @@
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public class IteamReader : MonoBehaviour
 {
-    public TMP_Text itemCompatibility, itemPart;
+    public TMP_Text itemCompatibility, itemPart,
+    botName,
+    type,
+    job,
+    size,
+    child,
+    wife,
+    record;
     public Inventory inventory;
     public GameObject patientPanel;
     public float slideSpeed = 8f;
     public bool slide;
+
+    public Button dischargeButton;
+    
     void Start()
     {
         inventory = FindAnyObjectByType<Inventory>();
