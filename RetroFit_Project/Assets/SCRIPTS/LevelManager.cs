@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,21 +26,43 @@ public class LevelManager : MonoBehaviour
 
     private bool isTransitioning = false;
 
-    private void Update()
-    {
-        // THE TIMER LOGIC
-        if (inShopPhase && !isTransitioning)
-        {
-            currentShopTimer -= Time.deltaTime;
+    public float money;
 
-            if (currentShopTimer <= 0f)
-            {
-                // Time is up! Go back to work.
-                StartCoroutine(ReturnFromShopRoutine());
-            }
+    [Header("UI")]
+    public TMPro.TMP_Text timerText;
+
+    private void Update()
+{
+    // THE TIMER LOGIC
+    if (inShopPhase && !isTransitioning)
+    {
+        currentShopTimer -= Time.deltaTime;
+
+        // --- THE NEW CLOCK MATH ---
+        // 1. Divide by 60 to get total minutes
+        int minutes = Mathf.FloorToInt(currentShopTimer / 60f);
+        
+        // 2. Use Modulo (%) to get the leftover seconds
+        int seconds = Mathf.FloorToInt(currentShopTimer % 60f);
+
+        // 3. Format it to always have 2 zeros (00:00) and update the text!
+        if (timerText != null)
+        {
+            timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        }
+
+        // --- CHECK IF TIME IS UP ---
+        if (currentShopTimer <= 0f)
+        {
+            // Lock it exactly to zero so it doesn't accidentally flash a negative number
+            currentShopTimer = 0f; 
+            if (timerText != null) timerText.text = "00:00";
+
+            // Time is up! Go back to work.
+            StartCoroutine(ReturnFromShopRoutine());
         }
     }
-
+}
     public void BotCompleted()
     {
         if (isTransitioning || inShopPhase) return; 
@@ -64,6 +87,7 @@ public class LevelManager : MonoBehaviour
     private IEnumerator DayCompleteRoutine()
     {
         isTransitioning = true;
+        FindObjectOfType<ShopManager>().SpawnHiddenItems();
         
         // FADE OUT
         Color fadeColor = fadeScreen.color;
@@ -98,7 +122,6 @@ public class LevelManager : MonoBehaviour
         }
 
         // SPAWN THE SHOP ITEMS AND START THE CLOCK
-        FindObjectOfType<ShopManager>().SpawnHiddenItems();
         
         currentShopTimer = shopDuration;
         inShopPhase = true;
@@ -153,4 +176,29 @@ public class LevelManager : MonoBehaviour
         isTransitioning = false;
         print("New Day Started! Get back to repairing bots.");
     }
+
+
+    public void GiveMoney()
+{
+    // 1. Grab the bot
+    BotClass bot = GetComponent<BotSpawner>().currentBot.GetComponent<BotClass>();
+
+    // 2. THE SAFETY CHECK: Is the string null or empty?
+    if (string.IsNullOrEmpty(bot.botGrade))
+    {
+        print("ERROR: This bot's grade is blank in the Inspector! Giving default money.");
+        money += 5; // Give a default amount so the game doesn't break
+        return;     // Stop running the rest of this function
+    }
+
+    // 3. If it's safe, do the math!
+    char gradeLetter = bot.botGrade[0];
+    int gradeMultiplier = ('E' - gradeLetter) + 1;
+    
+    // Clamp it just to be ultra-safe
+    gradeMultiplier = Mathf.Clamp(gradeMultiplier, 1, 5);
+    
+    money += 5 * gradeMultiplier;
+}
+
 }

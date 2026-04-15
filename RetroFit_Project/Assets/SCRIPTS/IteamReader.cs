@@ -14,7 +14,7 @@ public class IteamReader : MonoBehaviour
     wife,
     record;
     public Inventory inventory;
-    public GameObject patientPanel;
+    public GameObject patientPanel, newClamp,clampHome;
     public float slideSpeed = 8f;
     public bool slide;
 
@@ -54,6 +54,15 @@ public class IteamReader : MonoBehaviour
     public void PanelMove()
     {
         slide = !slide;
+    }
+
+    public void NewClamp()
+    {
+        if (clampHome.transform.childCount <= 0)
+        {    
+            GameObject newItem = Instantiate(newClamp, clampHome.transform.position, Quaternion.identity);
+            newItem.transform.SetParent(clampHome.transform);
+        }
     }
 
 }

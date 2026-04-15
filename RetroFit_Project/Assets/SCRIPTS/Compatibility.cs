@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class Compatibility : MonoBehaviour
@@ -19,6 +20,7 @@ public class Compatibility : MonoBehaviour
     }
 
     public BotPart botPart;
+    
 
     public static bool CheckCodes(string item, string basket)
     {
@@ -29,7 +31,23 @@ public class Compatibility : MonoBehaviour
 
         bool sizeMatch = Mathf.Abs(itemSize - basketSize) <= 1;
         bool typeMatch = item[2] == basket[2];
+        
 
         return sizeMatch && typeMatch;
     }
+
+    void Update()
+    {
+        if( transform.parent.GetComponent<BotClass>().deadBot == true)
+        {
+            itemCode = transform.parent.GetComponent<BotClass>().botGrade + transform.parent.GetComponent<BotClass>().size + transform.parent.GetComponent<BotClass>().type;
+        }
+        else
+        {
+            
+        }
+    }
+
+
+    
 }

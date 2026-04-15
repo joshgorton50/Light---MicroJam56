@@ -25,6 +25,8 @@ public class Bot : MonoBehaviour
     private void Start()
     {
         col = GetComponent<CircleCollider2D>();
+        BotClass botClass = GetComponent<BotClass>();
+        acceptedCode = botClass.botGrade + botClass.size + botClass.type;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

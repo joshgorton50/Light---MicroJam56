@@ -20,7 +20,15 @@ public class ShopManager : MonoBehaviour
 
     public void SpawnHiddenItems()
     {
+        foreach (GameObject items in spawnedItems) Destroy(items);
+
         spawnedItems.Clear();
+        
+        foreach(ShopDraw draw in FindObjectsOfType<ShopDraw>())
+        {
+            draw.isClicked = false;
+        }
+
         currentItemIndex = 0;
         activeItem = null; // Clear the counter at the start of a new day
 

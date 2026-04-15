@@ -132,6 +132,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: deadBot
       objectReference: {fileID: 0}
+    - target: {fileID: 5519443521193072605, guid: 7a0fcc6bb550fb440847db7de1c4ee87, type: 3}
+      propertyPath: deadBot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5519443521193072605, guid: 7a0fcc6bb550fb440847db7de1c4ee87, type: 3}
+      propertyPath: botGrade
+      value: A
+      objectReference: {fileID: 0}
     - target: {fileID: 5795674290993618119, guid: 7a0fcc6bb550fb440847db7de1c4ee87, type: 3}
       propertyPath: m_Color.b
       value: 0

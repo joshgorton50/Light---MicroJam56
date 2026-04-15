@@ -56,6 +56,7 @@ public class DragDrop2D : MonoBehaviour
             if (clamHome != null) 
             {
                 transform.SetParent(clamHome.transform);
+
             }
             transform.localPosition = Vector3.zero; 
         }
@@ -67,5 +68,15 @@ public class DragDrop2D : MonoBehaviour
         Vector3 worldPoint = Camera.main.ScreenToWorldPoint(mousePoint);
         worldPoint.z = 0f;
         return worldPoint;
+    }
+
+    void Start()
+    {
+        Compatibility compScript = GetComponent<Compatibility>();
+
+        if(compScript.botPart == Compatibility.BotPart.clamp)
+        {
+            clamHome = GameObject.Find("clamHome");
+        }
     }
 }
