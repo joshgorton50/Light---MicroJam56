@@ -495,11 +495,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb284b9fac7752742b7f0bb61dd10a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  botName: bob
+  botName: Jim
   currentIteam: {fileID: 0}
   socket: {fileID: 9008407974227080771}
   acceptedCode: A1a
-  botPartSocket: 4
+  botPartSocket: 0
   leave: 0
 --- !u!50 &3452570849344679643
 Rigidbody2D:
@@ -579,10 +579,12 @@ MonoBehaviour:
   botName: jim
   type: b
   job: test sub 2
+  botGrade: A
   size: 3
   child: 4
   wife: 8
   record: boss
+  deadBot: 0
 --- !u!1 &5244863400475014093
 GameObject:
   m_ObjectHideFlags: 0

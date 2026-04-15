@@ -30,6 +30,7 @@ public class LevelManager : MonoBehaviour
 
     [Header("UI")]
     public TMPro.TMP_Text timerText;
+    public TMPro.TMP_Text Money;
 
     private void Update()
 {
@@ -62,6 +63,7 @@ public class LevelManager : MonoBehaviour
             StartCoroutine(ReturnFromShopRoutine());
         }
     }
+    Money.text = "£" + money.ToString();
 }
     public void BotCompleted()
     {

@@ -38,7 +38,7 @@ public class Compatibility : MonoBehaviour
 
     void Update()
     {
-        if( transform.parent.GetComponent<BotClass>().deadBot == true)
+        if( transform.parent != null && transform.parent.GetComponent<BotClass>().deadBot == true)
         {
             itemCode = transform.parent.GetComponent<BotClass>().botGrade + transform.parent.GetComponent<BotClass>().size + transform.parent.GetComponent<BotClass>().type;
         }

@@ -14,6 +14,7 @@ public class BotClass : MonoBehaviour
     record;
 
     public bool deadBot;
+    
 
     private void Start()
     {

@@ -579,10 +579,12 @@ MonoBehaviour:
   botName: bob
   type: a
   job: test sub
+  botGrade: A
   size: 1
   child: 4
   wife: -1
   record: mob boss
+  deadBot: 0
 --- !u!1 &5244863400475014093
 GameObject:
   m_ObjectHideFlags: 0
